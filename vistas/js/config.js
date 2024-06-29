@@ -1,0 +1,4 @@
+const CONFIG = {
+    API_BASE_URL: 'http://localhost:8080/lab-backend/',
+    API_AUTH_HEADER: 'Basic JDJhJDA3JGRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2Vwd2RCVk12aVdXRXdLQkZiMjJoTDZNVWtyRk5xRzhPOiQyYSQwNyRkZmhkZnJleGZoZ2RmaGRmZXJ0dGdlZ2N5cFFKZ2JFZ083TGouWGMyNTRnOXYuemtiTGJoeQ=='
+};
