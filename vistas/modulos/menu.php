@@ -60,6 +60,12 @@
 						</a>
 					</li>
 				</ul>
+			</li>
+			<li>
+				<a href="reportes">
+					<i class="fa fa-flask"></i>
+					<span>Reportes</span>
+				</a>
 			</li>';
 		}
 
@@ -106,6 +112,12 @@
 						</a>
 					</li>
 				</ul>
+			</li>
+			<li>
+				<a href="reportes">
+					<i class="fa fa-flask"></i>
+					<span>Reportes</span>
+				</a>
 			</li>';
 		}
 		?>

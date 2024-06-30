@@ -239,3 +239,16 @@ $(".tablas").on("click", ".btnEliminarMantenimiento", function(){
     })
 
 })
+
+/*=============================================
+IMPRIMIR FACTURA
+=============================================*/
+
+$(document).ready(function() {
+    // Escuchar clic directamente en el botón
+    $(".btnImprimirReporteMantenimiento").on("click", function() {
+        var codigoVenta = $(this).attr("inveId"); // Asegúrate de que el atributo inveId esté presente en el botón
+
+        window.open("extensiones/tcpdf/pdf/reportemantenimiento.php", "_blank");
+    });
+});

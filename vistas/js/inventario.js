@@ -1,3 +1,39 @@
+$(document).ready(function() {
+	var initialStock = 0;  // Variable para almacenar el stock inicial
+  
+	// Actualizar stock actual al seleccionar un producto
+	$("#nuevoInveProdId").on("change", function() {
+	  var stock = $(this).find(':selected').data('stock');
+	  initialStock = stock;  // Guardar el stock inicial
+	  $("#stockActual").val(stock);
+	  $("#nuevoInveTipomovimiento").val('');  // Resetear tipo de movimiento
+	  $("#nuevoInveCantidadDisponible").val('');  // Resetear cantidad disponible
+	});
+  
+	// Manejar cambios en el tipo de movimiento y la cantidad disponible
+	$("#nuevoInveTipomovimiento, #nuevoInveCantidadDisponible").on("change keyup", function() {
+	  var tipoMovimiento = $("#nuevoInveTipomovimiento").val();
+	  var cantidadDisponible = parseFloat($("#nuevoInveCantidadDisponible").val());
+	  var nuevoStock = initialStock;
+  
+	  if (!isNaN(cantidadDisponible)) {
+		if (tipoMovimiento === "Ingreso") {
+		  nuevoStock = initialStock + cantidadDisponible;
+		} else if (tipoMovimiento === "Retiro") {
+		  nuevoStock = initialStock - cantidadDisponible;
+		}
+	  }
+  
+	  $("#stockActual").val(nuevoStock);
+	  
+	  // Si se vuelve a seleccionar "Seleccionar tipo de movimiento", restaurar el stock inicial
+	  if (tipoMovimiento === "") {
+		$("#stockActual").val(initialStock);
+	  }
+	});
+  });
+
+
 /*=============================================
 EDITAR INVENTARIO
 =============================================*/
@@ -125,16 +161,15 @@ $(document).ready(function() {
     $("#formRegistrarInventario").on("submit", function(event) {
         event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
         // Acceder a la configuración definida en config.js
-        console.log("API Base URL:", CONFIG.API_BASE_URL);
-        console.log("API Auth Header:", CONFIG.API_AUTH_HEADER);
 
         // Captura los valores de los campos
         var nuevoInveProdId = $("#nuevoInveProdId").val();
         var nuevoInveTipomovimiento = $("#nuevoInveTipomovimiento").val();
-        var nuevoInveCantidadDisponible = $("#nuevoInveCantidadDisponible").val();
-        var nuevoInveLaboId = $("#nuevoInveLaboId").val();
+        //var nuevoInveCantidadDisponible = $("#nuevoInveCantidadDisponible").val();
+		var nuevoStockActual = $("#stockActual").val();
+        var inveLaboId = $("#inveLaboId").val();
         var nuevoInveFecha = $("#nuevoInveFecha").val();
-
+		
         // Configura los datos y la solicitud AJAX
         var settings = {
 			"url": `${CONFIG.API_BASE_URL}inventario`,
@@ -147,8 +182,8 @@ $(document).ready(function() {
 			"data": {
 				"inve_tipomovimiento": nuevoInveTipomovimiento,
                 "inve_prod_id": nuevoInveProdId,
-                "inve_cantidad_disponible": nuevoInveCantidadDisponible,
-                "inve_labo_id": "3",
+                "inve_cantidad_disponible": nuevoStockActual,
+                "inve_labo_id": inveLaboId,
                 "inve_fecha": nuevoInveFecha
 			},
 			success: function(response) {
@@ -249,11 +284,11 @@ $(".tablas").on("click", ".btnEliminarInventario", function(){
 IMPRIMIR FACTURA
 =============================================*/
 
-$(".tablas").on("click", ".btnImprimirReporte", function(){
+$(document).ready(function() {
+    // Escuchar clic directamente en el botón
+    $(".btnImprimirReporte").on("click", function() {
+        var codigoVenta = $(this).attr("inveId"); // Asegúrate de que el atributo inveId esté presente en el botón
 
-	console.log("hola")
-	var codigoVenta = $(this).attr("inveId");
-
-	window.open("extensiones/tcpdf/pdf/factura.php?codigo="+codigoVenta, "_blank");
-
-})
+        window.open("extensiones/tcpdf/pdf/reporteinventario.php", "_blank");
+    });
+});

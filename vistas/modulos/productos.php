@@ -43,18 +43,6 @@ $responsetipoproducto = curl_exec($curl);
 curl_close($curl);
 $dataTipoProducto = json_decode($responsetipoproducto, true);
 
-if($_SESSION["perfil"] == "Vendedor"){
-
-  echo '<script>
-
-    window.location = "inicio";
-
-  </script>';
-
-  return;
-
-}
-
 ?>
 <div class="content-wrapper">
 

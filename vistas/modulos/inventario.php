@@ -42,16 +42,14 @@ $responseproducto = curl_exec($curl);
 curl_close($curl);
 $dataProducto = json_decode($responseproducto, true);
 
-if($_SESSION["perfil"] == "Vendedor"){
-
-  echo '<script>
-
-    window.location = "inicio";
-
-  </script>';
-
-  return;
-
+// Crear un mapa de productos y sus stocks
+$productoStocks = [];
+foreach ($data["Detalles"] as $key => $inventario) {
+    $prodId = $inventario["inve_prod_id"];
+    if (!isset($productoStocks[$prodId])) {
+        $productoStocks[$prodId] = 0;
+    }
+    $productoStocks[$prodId] += $inventario["inve_cantidad_disponible"]; // Asumiendo que 'stock' es el campo que contiene la cantidad
 }
 
 ?>
@@ -83,7 +81,13 @@ if($_SESSION["perfil"] == "Vendedor"){
   
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarInventario">
           
-          Agregar producto al inventario
+          Registrar producto al inventario
+
+        </button>
+
+        <button class="btn btn-info btnImprimirReporte">
+          
+          Generar reporte
 
         </button>
         
@@ -110,13 +114,28 @@ if($_SESSION["perfil"] == "Vendedor"){
 
         </thead>      
         <tbody>
-          <?php foreach($data["Detalles"] as $key => $inventario): ?>
+          <?php $invertedData = array_reverse($data["Detalles"]); ?>
+          <?php foreach($invertedData as $key => $inventario): ?>
+            <?php
+              $mostrar = false;
+
+              // Verificar el perfil del usuario
+              if ($_SESSION["perfil"] == 5) {
+                  // Perfil 5 puede ver todo
+                  $mostrar = true;
+              } elseif ($_SESSION["perfil"] == 3 && $prestamo["inve_labo_id"] == $_SESSION["labo_id"]) {
+                  // Perfil 3 solo puede ver si inve_labo_id coincide
+                  $mostrar = true;
+              }
+
+              // Mostrar los datos si se cumplen las condiciones
+              if ($mostrar): ?>
           <tr>
             <td><?= ($key + 1) ?></td>
             <td><?= $inventario["prod_nombre"] ?></td>
             <td><?= $inventario["prod_codigoinventario"] ?></td>
             <td><?= $inventario["inve_tipomovimiento"] ?></td>
-            <td><?= $inventario["inve_fecha"] ?></td>
+            <td><?= substr($inventario["inve_fecha"], 0, 10) ?></td>
             <td><?= $inventario["inve_cantidad_disponible"] ?></td>
             <td>
 
@@ -127,16 +146,12 @@ if($_SESSION["perfil"] == "Vendedor"){
                 <button class="btn btn-danger btnEliminarInventario" eliminarInveId="<?= $inventario["inve_id"] ?>">
                   <i class="fa fa-times"></i>
                 </button>
-                <button class="btn btn-info btnImprimirReporte" inveId="2">
-          
-                <i class="fa fa-print"></i>
-
-                </button>
               </div>  
 
             </td>
           </tr>
-          <?php endforeach ?>
+    <?php endif; ?>
+  <?php endforeach; ?>
 		</tbody>
 
        </table>
@@ -184,21 +199,23 @@ MODAL AGREGAR INVENTARIO
           <div class="box-body">
 
           <!-- ENTRADA PARA SELECCIONAR PRODUCTO -->
-
           <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-th"></i></span> 
-                <select class="form-control input-lg" id="nuevoInveProdId" name="nuevoInveProdId" >
-                  <option value="">Selecionar producto</option>
-                  <?php foreach ($dataProducto["Detalles"] as $key => $producto): ?>
-                  <option value="<?= $producto["prod_id"] ?>">
-                    <?= $producto["prod_nombre"] ?>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-th"></i></span> 
+              <select class="form-control input-lg" id="nuevoInveProdId" name="nuevoInveProdId">
+                <option value="">Seleccionar producto</option>
+                <?php foreach ($dataProducto["Detalles"] as $key => $producto): ?>
+                  <?php
+                  $prodId = $producto["prod_id"];
+                  $stock = isset($productoStocks[$prodId]) ? $productoStocks[$prodId] : 0;
+                  ?>
+                  <option value="<?= $prodId ?>" data-stock="<?= $stock ?>">
+                    <?= $producto["prod_nombre"] ?> - Stock: <?= $stock ?>
                   </option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-
+                <?php endforeach; ?>
+              </select>
             </div>
+          </div>
 
             <!-- ENTRADA PARA EL TIPO MOVIMIENTO -->
             
@@ -216,21 +233,36 @@ MODAL AGREGAR INVENTARIO
             <!-- ENTRADA PARA CANTIDAD DISPONIBLE -->
             
             <div class="form-group">
-              
+            <label>Ingresar cantidad</label>
               <div class="input-group">
               
                 <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-
+                <input type="hidden" name="inveLaboId" id="inveLaboId" value="<?php echo $_SESSION['labo_id']; ?>" required>
                 <input type="text" class="form-control input-lg" name="nuevoInveCantidadDisponible" placeholder="Ingresar cantidad" id="nuevoInveCantidadDisponible" required>
 
               </div>
 
             </div>
 
+            <!-- ENTRADA PARA la CANTIDAD DISPONIBLE -->
+            
+            <div class="form-group">
+              
+            <label>Cantidad total</label>
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="stockActual" id="stockActual" required readonly>
+
+              </div>
+
+            </div>
+            
             <!-- ENTRADA PARA LA FECHA -->
             
             <div class="form-group">
-              <label>Ingresar fecha</label>
+              <label>Fecha del movimiento</label>
               <div class="input-group">
               
                 <span class="input-group-addon"><i class="fa fa-user"></i></span> 
@@ -380,6 +412,6 @@ MODAL EDITAR INVENTARIO
   </div>
 
 </div>     
-
-
-
+<script type="text/javascript">
+  var laboIdSesion = <?php echo json_encode($_SESSION["labo_id"]); ?>;
+</script>

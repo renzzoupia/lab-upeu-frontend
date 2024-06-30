@@ -27,6 +27,7 @@ $(".tablas").on("click", ".btnDevolverPrestamo", function(){
 			
 			$("#editarPresId").val(detalles.pres_id);
 			$("#editarInveId").val(detalles.pres_inve_id);
+			$("#editarNombreAlumno").val(detalles.pres_nombre_alumno);
 			$("#editarInveNombreId").val(detalles.prod_nombre);
 			//$("#editarLaboDescripcion").val(detalles.pres_usua_id);
 			$("#editarPresCantidad").val(detalles.pres_cantidad);
@@ -70,7 +71,7 @@ $(document).ready(function() {
         event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
 		var form = new FormData();
 		form.append("pres_inve_id", $("#editarInveId").val());
-		form.append("pres_usua_id", "5");
+		form.append("pres_nombre_alumno", $("#editarNombreAlumno").val());
 		form.append("pres_cantidad", $("#editarPresCantidad").val());
 		form.append("pres_codigouni_alumno", $("#editarPresCodigouniAlumno").val());
 		if (editarImagen && editarImagen.files[0]) {
@@ -78,7 +79,7 @@ $(document).ready(function() {
         }
 		form.append("pres_fechasolicitud", $("#editarPresFechasolicitud").val());
 		form.append("pres_fechaentregado", $("#editarFechaentregado").val());
-		form.append("pres_fechadevolucion", $("#editarPresFechadevolucion").val());
+		form.append("pres_fechadevolucion", $("#editarFechaentregado").val());
 		form.append("pres_fecharealdevolucion", $("#editarPresFecharealdevolucion").val());
 		form.append("pres_observacion", $("#editarPresObservacion").val());
 		form.append("pres_estado", "Devuelto");
@@ -209,7 +210,7 @@ $(document).ready(function() {
 
         var form = new FormData();
         form.append("pres_inve_id", $("#nuevoInveId").val());
-        form.append("pres_usua_id", "5");
+        form.append("pres_nombre_alumno", $("#presNombreAlumno").val());
         form.append("pres_cantidad", $("#nuevoPresCantidad").val());
         form.append("pres_codigouni_alumno", $("#presCodigouniAlumno").val());
         form.append("pres_evidencia", fileInput.files[0]);
@@ -318,6 +319,82 @@ $(".tablas").on("click", ".btnEliminarPrestamo", function(){
     })
 
 })
+
+/*=============================================
+IMPRIMIR FACTURA
+=============================================*/
+
+$(document).ready(function() {
+    // Escuchar clic directamente en el botón
+    $(".btnImprimirReportePrestamo").on("click", function() {
+        var codigoVenta = $(this).attr("inveId"); // Asegúrate de que el atributo inveId esté presente en el botón
+
+        window.open("extensiones/tcpdf/pdf/reporteprestamo.php", "_blank");
+    });
+});
+/*=============================================
+MOSTRAR PRESTAMO PRESTAMO
+=============================================*/
+$(".tablas").on("click", ".btnMostrarPrestamo", function(){
+
+	var mostrarPresId = $(this).attr("mostrarPresId");
+	var settings = {
+		"url": `${CONFIG.API_BASE_URL}prestamo/${mostrarPresId}`,
+		"method": "GET",
+		"timeout": 0,
+		"headers": {
+			"Authorization": CONFIG.API_AUTH_HEADER
+		},
+	  };
+	  
+	  $.ajax(settings).done(function (response) {
+		// Si la respuesta es una cadena de texto, conviértela a un objeto JSON
+		if (typeof response === 'string') {
+			response = JSON.parse(response);
+		}
+	
+		console.log(response); // Verifica la estructura del JSON
+	
+		if (response && response.Detalles && response.Detalles.length > 0) {
+			var detalles = response.Detalles[0];
+			
+			$("#mostrarPresId").val(detalles.pres_id);
+			$("#mostrarInveId").val(detalles.pres_inve_id);
+			$("#mostrarNombreAlumno").val(detalles.pres_nombre_alumno);
+			$("#mostrarInveNombreId").val(detalles.prod_nombre);
+			//$("#mostrarLaboDescripcion").val(detalles.pres_usua_id);
+			$("#mostrarPresCantidad").val(detalles.pres_cantidad);
+            $("#mostrarPresCodigouniAlumno").val(detalles.pres_codigouni_alumno);
+            //$("#mostrarLaboEscuId").val(detalles.pres_evidencia);
+
+            // Transformar la fecha de inicio al formato yyyy-MM-dd
+			var fechaDeSolicitud = detalles.pres_fechasolicitud.split(" ")[0];
+			$("#mostrarPresFechasolicitud").val(fechaDeSolicitud);
+
+            // Transformar la fecha de inicio al formato yyyy-MM-dd
+			var fechaDeEntregado = detalles.pres_fechaentregado.split(" ")[0];
+			$("#mostrarFechaentregado").val(fechaDeEntregado);
+
+            // Transformar la fecha de inicio al formato yyyy-MM-dd
+			var fechaDeDevolucion = detalles.pres_fechadevolucion.split(" ")[0];
+			$("#mostrarPresFechadevolucion").val(fechaDeDevolucion);
+
+            // Transformar la fecha de inicio al formato yyyy-MM-dd
+			var fechaDeRealdevolucion = detalles.pres_fecharealdevolucion.split(" ")[0];
+			$("#mostrarPresFechadevolucion").val(fechaDeRealdevolucion);
+
+            $("#mostrarPresObservacion").val(detalles.pres_observacion);
+            $("#mostrarPresEstado").val(detalles.pres_estado);
+			$("#imagenPrevisualizar").attr('src', val(detalles.pres_evidencia));
+			//$("#mostrarPresEstado").val(detalles.pres_evidencia);
+			// Encuentra la opción seleccionada y actualiza su texto
+			$("#mostrarInveId option:selected").text(detalles.prod_nombre);
+		} else {
+			console.error("La estructura del JSON no es la esperada o Detalles está vacío.");
+		}
+	  });
+})
+
 
 /*=============================================
 CONFIRMAR EDITAR PRESTAMO

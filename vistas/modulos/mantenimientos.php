@@ -43,18 +43,6 @@ $responseinventario = curl_exec($curl);
 curl_close($curl);
 $dataInventario = json_decode($responseinventario, true);
 
-if($_SESSION["perfil"] == "Vendedor"){
-
-  echo '<script>
-
-    window.location = "inicio";
-
-  </script>';
-
-  return;
-
-}
-
 ?>
 <div class="content-wrapper">
 
@@ -87,7 +75,12 @@ if($_SESSION["perfil"] == "Vendedor"){
           Registrar mantenimiento
 
         </button>
+        
+        <button class="btn btn-info btnImprimirReporteMantenimiento">
+          
+          Generar reporte
 
+        </button>
       </div>
 
       <div class="box-body">
@@ -110,6 +103,20 @@ if($_SESSION["perfil"] == "Vendedor"){
         </thead>      
         <tbody>
           <?php foreach($data["Detalles"] as $key => $mantenimiento): ?>
+            <?php
+              $mostrar = false;
+
+              // Verificar el perfil del usuario
+              if ($_SESSION["perfil"] == 5) {
+                  // Perfil 5 puede ver todo
+                  $mostrar = true;
+              } elseif ($_SESSION["perfil"] == 3 && $prestamo["inve_labo_id"] == $_SESSION["labo_id"]) {
+                  // Perfil 3 solo puede ver si inve_labo_id coincide
+                  $mostrar = true;
+              }
+
+              // Mostrar los datos si se cumplen las condiciones
+              if ($mostrar): ?>
           <tr>
             <td><?= ($key + 1) ?></td>
             <td><?= $mantenimiento["prod_nombre"] ?></td>
@@ -133,7 +140,8 @@ if($_SESSION["perfil"] == "Vendedor"){
 
             </td>
           </tr>
-          <?php endforeach ?>
+          <?php endif; ?>
+          <?php endforeach; ?>
 		</tbody>
 
        </table>
