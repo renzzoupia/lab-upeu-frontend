@@ -32,6 +32,11 @@ $(".tablas").on("click", ".btnEditarProducto", function(){
 			$("#editarProdNombre").val(detalles.prod_nombre);
 			$("#editarProdCodigoinventario").val(detalles.prod_codigoinventario);
 			$("#editarProdTiprId").val(detalles.prod_tipr_id);
+			$("#editarProdDescripcion").val(detalles.prod_descripcion);
+			$("#editarProdMarca").val(detalles.prod_marca);
+			$("#editarProdModelo").val(detalles.prod_modelo);
+			$("#editarProdEspecificacion").val(detalles.prod_especificaciones);
+			$("#editarProdUbicacion").val(detalles.prod_ubicacion);
 			// Encuentra la opción seleccionada y actualiza su texto
 			$("#editarProdTiprId option:selected").text(detalles.tipr_nombre);
 		} else {
@@ -50,6 +55,11 @@ $(document).ready(function() {
         var editarProdNombre = $("#editarProdNombre").val();
         var editarProdCodigoinventario = $("#editarProdCodigoinventario").val();
         var editarProdTiprId = $("#editarProdTiprId").val();
+		var editarProdDescripcion = $("#editarProdDescripcion").val();
+		var editarProdMarca = $("#editarProdMarca").val();
+		var editarProdModelo = $("#editarProdModelo").val();
+		var editarProdEspecificacion = $("#editarProdEspecificacion").val();
+		var editarProdUbicacion = $("#editarProdUbicacion").val();
 
         // Configura los datos y la solicitud AJAX
         var settings = {
@@ -63,7 +73,12 @@ $(document).ready(function() {
 			"data": {
 			  "prod_nombre": editarProdNombre,
 			  "prod_codigoinventario": editarProdCodigoinventario,
-			  "prod_tipr_id": editarProdTiprId
+			  "prod_tipr_id": editarProdTiprId,
+			  "prod_descripcion": editarProdDescripcion,
+			  "prod_marca": editarProdMarca,
+			  "prod_modelo": editarProdModelo,
+			  "prod_especificaciones": editarProdEspecificacion,
+			  "prod_ubicacion": editarProdUbicacion,
 			},
 			success: function(response) {
                 console.log("Edición exitosa:", response);
@@ -116,6 +131,11 @@ $(document).ready(function() {
         var nuevoProdNombre = $("#nuevoProdNombre").val();
         var nuevoProdCodigoinventario = $("#nuevoProdCodigoinventario").val();
         var nuevoProdTiprId = $("#nuevoProdTiprId").val();
+		var nuevoProdDescripcion = $("#nuevoProdDescripcion").val();
+		var nuevoProdMarca = $("#nuevoProdMarca").val();
+		var nuevoProdModelo = $("#nuevoProdModelo").val();
+		var nuevoProdEspecificacion = $("#nuevoProdEspecificacion").val();
+		var nuevoProdUbicacion = $("#nuevoProdUbicacion").val();
 		console.log(nuevoProdNombre);
 		console.log(nuevoProdCodigoinventario);
 		console.log(nuevoProdTiprId);
@@ -132,7 +152,12 @@ $(document).ready(function() {
 			"data": {
 				"prod_nombre": nuevoProdNombre,
 				"prod_codigoinventario": nuevoProdCodigoinventario,
-				"prod_tipr_id": nuevoProdTiprId
+				"prod_tipr_id": nuevoProdTiprId,
+				"prod_descripcion": nuevoProdDescripcion,
+				"prod_marca": nuevoProdMarca,
+				"prod_modelo": nuevoProdModelo,
+				"prod_especificaciones": nuevoProdEspecificacion,
+				"prod_ubicacion": nuevoProdUbicacion
 			},
 			success: function(response) {
                 console.log("Registro exitosa:", response);

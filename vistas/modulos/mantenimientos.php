@@ -136,6 +136,9 @@ $dataInventario = json_decode($responseinventario, true);
                 <button class="btn btn-danger btnEliminarMantenimiento" eliminarMantId="<?= $mantenimiento["mant_id"] ?>">
                   <i class="fa fa-times"></i>
                 </button>
+                <button class="btn btn-link fa-lg  btnMostrarMantenimiento" mostrarMantId="<?= $mantenimiento["mant_id"] ?>" data-toggle="modal" data-target="#modalMostrarMantenimiento">
+                  <i class="fa fa-plus" ></i>
+                </button>
               </div>
 
             </td>
@@ -211,7 +214,19 @@ MODAL AGREGAR MANTENIMIENTO
                     </select>
                 </div>
             </div>
+            
+            <!-- ENTRADA PARA LA CANTIDAD -->
+            <div class="form-group">
+            <label>Cantidad</label>
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
 
+                <input type="number" class="form-control input-lg" name="nuevoMantCantidad" placeholder="Ingresar cantidad" id="nuevoMantCantidad" required>
+
+              </div>
+
+            </div>
 
             <!-- ENTRADA PARA LA FECHA DE INICIO -->
             
@@ -310,7 +325,18 @@ MODAL EDITAR MANTENIMIENTO
               </div>
 
             </div>
+             <!-- ENTRADA PARA LA CANTIDAD -->
+            <div class="form-group">
+              <label>Cantidad</label>
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
 
+                <input type="number" class="form-control input-lg" name="editarMantCantidad" placeholder="Ingresar cantidad" id="editarMantCantidad" required readonly>
+
+              </div>
+
+            </div>
 
             <!-- ENTRADA PARA LA FECHA DE INICIO -->
             
@@ -371,7 +397,113 @@ MODAL EDITAR MANTENIMIENTO
 
   </div>
 
-</div>     
+</div>
+
+<!--=====================================
+MODAL MOSTRAR MANTENIMIENTO
+======================================-->
+
+<div id="modalMostrarMantenimiento" class="modal fade" role="dialog">
+  
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <!-- Formulario quitado porque no se realizará ninguna acción POST -->
+      <div class="modal-header" style="background:#003264; color:white">
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <h4 class="modal-title">Ver prestamo</h4>
+
+      </div>
+
+      <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+            <!-- ENTRADA PARA ELEGIR PRODUCTO -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-code"></i></span> 
+                <input type="hidden"  name="mostrarMantId" id="mostrarMantId" required>
+                <input type="hidden"  name="mostrarInveId" id="mostrarInveId" required>
+                <input type="text" class="form-control input-lg" id="mostrarInveNombreId" name="mostrarInveNombreId" required readonly>
+
+              </div>
+
+            </div>
+             <!-- ENTRADA PARA LA CANTIDAD -->
+            <div class="form-group">
+              <label>Cantidad</label>
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="number" class="form-control input-lg" name="mostrarMantCantidad" placeholder="Ingresar cantidad" id="mostrarMantCantidad" required readonly>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA FECHA DE INICIO -->
+            
+            <div class="form-group">
+              <label>Fecha de inicio del mantenimiento</label>
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="date" class="form-control input-lg" name="mostrarMantFechainicio" placeholder="Ingresar descripción" id="mostrarMantFechainicio" required readonly>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA FECHA DEVOLUCION -->
+            <div class="form-group">
+            <label>Fecha de la devolucion del mantenimiento</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="date" class="form-control input-lg" name="mostrarMantFechadevolucion" placeholder="Ingresar descripción" id="mostrarMantFechadevolucion" required>
+                </div>
+            </div>
+
+            <!-- ENTRADA PARA LA RESULTADO -->
+            <div class="form-group">
+              
+            <label>Resultado</label>
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="mostrarMantResultado" placeholder="Ingresar resultado" id="mostrarMantResultado" required>
+
+              </div>
+
+            </div>
+            
+          </div>
+
+        </div>
+
+      <!-- Pie del modal con solo el botón de salir -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
 
 

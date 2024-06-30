@@ -205,6 +205,76 @@ MODAL AGREGAR PRODUCTO
               </div>
 
             </div>
+
+            <!-- ENTRADA PARA LA DESCRIPCION -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoProdDescripcion" placeholder="Ingresar descripción" id="nuevoProdDescripcion" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA MARCA -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoProdMarca" placeholder="Ingresar marca" id="nuevoProdMarca" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA MODELO -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoProdModelo" placeholder="Ingresar modelo" id="nuevoProdModelo" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA ESPECIFICACION -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoProdEspecificacion" placeholder="Ingresar especificacion" id="nuevoProdEspecificacion" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA UBICACION -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoProdUbicacion" placeholder="Ingresar ubicacion" id="nuevoProdUbicacion" required>
+
+              </div>
+
+            </div>
           </div>
 
         </div>
@@ -302,6 +372,75 @@ MODAL EDITAR PRODUCTO
                   </option>
                   <?php endforeach; ?>
                 </select>
+              </div>
+
+            </div>
+             <!-- ENTRADA PARA LA DESCRIPCION -->
+            
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="editarProdDescripcion" placeholder="Ingresar descripción" id="editarProdDescripcion" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA MARCA -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="editarProdMarca" placeholder="Ingresar marca" id="editarProdMarca" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA MODELO -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="editarProdModelo" placeholder="Ingresar modelo" id="editarProdModelo" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA ESPECIFICACION -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="editarProdEspecificacion" placeholder="Ingresar especificacion" id="editarProdEspecificacion" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA UBICACION -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="editarProdUbicacion" placeholder="Ingresar ubicacion" id="editarProdUbicacion" required>
+
               </div>
 
             </div>

@@ -146,6 +146,9 @@ foreach ($data["Detalles"] as $key => $inventario) {
                 <button class="btn btn-danger btnEliminarInventario" eliminarInveId="<?= $inventario["inve_id"] ?>">
                   <i class="fa fa-times"></i>
                 </button>
+                <button class="btn btn-link fa-lg  btnMostrarInventario" mostrarInveId="<?= $inventario["inve_id"] ?>" data-toggle="modal" data-target="#modalMostrarInventario">
+                  <i class="fa fa-plus" ></i>
+                </button>
               </div>  
 
             </td>
@@ -230,7 +233,7 @@ MODAL AGREGAR INVENTARIO
                 </div>
             </div>
 
-            <!-- ENTRADA PARA CANTIDAD DISPONIBLE -->
+            <!-- ENTRADA PARA CANTIDAD ACTUAL -->
             
             <div class="form-group">
             <label>Ingresar cantidad</label>
@@ -411,7 +414,120 @@ MODAL EDITAR INVENTARIO
 
   </div>
 
-</div>     
+</div>
+
+<!--=====================================
+MODAL MOSTRAR INVENTARIO
+======================================-->
+
+<div id="modalMostrarInventario" class="modal fade" role="dialog">
+  
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <!-- Formulario quitado porque no se realizará ninguna acción POST -->
+      <div class="modal-header" style="background:#003264; color:white">
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <h4 class="modal-title">Ver inventario</h4>
+
+      </div>
+
+       <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+          <!-- ENTRADA PARA SELECCIONAR PRODUCTO -->
+          <div class="form-group">
+          <label>Producto</label>
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="mostrarInveProdId" placeholder="Ingresar cantidad" id="mostrarInveProdId" required readonly>
+                <input type="hidden"  name="mostrarInveId" id="mostrarInveId" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL TIPO MOVIMIENTO -->
+            <div class="form-group">
+            <label>Tipo de movimiento</label>
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="mostrarInveTipomovimiento"  id="mostrarInveTipomovimiento" required readonly>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA CANTIDAD DISPONIBLE -->
+            
+            <div class="form-group">
+            <label>Cantidad actual</label>
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="mostrarInveCantidadDisponible" placeholder="Ingresar cantidad" id="mostrarInveCantidadDisponible" required readonly>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA CANTIDAD ANTERIOR -->
+            
+            <div class="form-group">
+            <label>Cantidad agregada</label>
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="mostrarInveCantidadAnterior" placeholder="Ingresar cantidad" id="mostrarInveCantidadAnterior" required readonly>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA FECHA -->
+            
+            <div class="form-group">
+            <label>Fecha que fue agregada</label>
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="date" class="form-control input-lg" name="mostrarInveFecha" placeholder="Ingresar codigo" id="mostrarInveFecha" required readonly>
+
+              </div>
+
+            </div>
+            
+          </div>
+
+        </div>
+
+      <!-- Pie del modal con solo el botón de salir -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 <script type="text/javascript">
   var laboIdSesion = <?php echo json_encode($_SESSION["labo_id"]); ?>;
 </script>

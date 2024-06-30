@@ -34,6 +34,8 @@ $(".tablas").on("click", ".btnEditarMantenimiento", function(){
 			$("#editarMantId").val(detalles.mant_id);
 			$("#editarInveId").val(detalles.mant_inve_id);
 			$("#editarInveNombreId").val(detalles.prod_nombre);
+			$("#editarMantCantidad").val(detalles.mant_cantidad);
+			
 			// Transformar la fecha de inicio al formato yyyy-MM-dd
 			var fechaDeInicio = detalles.mant_fechainicio.split(" ")[0];
 			$("#editarMantFechainicio").val(fechaDeInicio);
@@ -62,6 +64,7 @@ $(document).ready(function() {
         var editarMantFechainicio = $("#editarMantFechainicio").val();
         var editarMantFechadevolucion = $("#editarMantFechadevolucion").val();
 		var editarMantResultado = $("#editarMantResultado").val();
+		var editarMantCantidad = $("#editarMantCantidad").val();
         // Configura los datos y la solicitud AJAX
         var settings = {
 			"url": `${CONFIG.API_BASE_URL}mantenimiento/${editarMantId}`,
@@ -76,7 +79,8 @@ $(document).ready(function() {
 			  "mant_fechainicio": editarMantFechainicio,
 			  "mant_fechadevolucion": editarMantFechadevolucion,
 			  "mant_resultado": editarMantResultado,
-			  "mant_estado": "Solucionado"
+			  "mant_estado": "Solucionado",
+			  "mant_cantidad": editarMantCantidad
 			},
 			success: function(response) {
                 console.log("Edición exitosa:", response);
@@ -131,6 +135,7 @@ $(document).ready(function() {
         var prodId = $("#prodId").val();
         var nuevoMantFechainicio = $("#nuevoMantFechainicio").val();
         var nuevoMantFechadevolucion = $("#nuevoMantFechadevolucion").val();
+		var nuevoMantCantidad = $("#nuevoMantCantidad").val();
 
         // Configura los datos y la solicitud AJAX
         var settings = {
@@ -145,7 +150,8 @@ $(document).ready(function() {
 				"mant_inve_id": prodId,
 				"mant_fechainicio": nuevoMantFechainicio,
 				"mant_fechadevolucion": nuevoMantFechadevolucion,
-				"mant_estado": "Mantenimiento"
+				"mant_estado": "Mantenimiento",
+				"mant_cantidad": nuevoMantCantidad
 			},
 			success: function(response) {
                 console.log("Registro exitosa:", response);
@@ -238,6 +244,60 @@ $(".tablas").on("click", ".btnEliminarMantenimiento", function(){
 
     })
 
+})
+
+/*=============================================
+MOSTRAR PRESTAMO PRESTAMO
+=============================================*/
+$(".tablas").on("click", ".btnMostrarMantenimiento", function(){
+	var mostrarMantId = $(this).attr("mostrarMantId");
+
+	var settings = {
+		"url": `${CONFIG.API_BASE_URL}mantenimiento/${mostrarMantId}`,
+		"method": "GET",
+		"timeout": 0,
+		"headers": {
+			"Authorization": CONFIG.API_AUTH_HEADER
+		},
+	  };
+	  
+	  $.ajax(settings).done(function (response) {
+		// Si la respuesta es una cadena de texto, conviértela a un objeto JSON
+		if (typeof response === 'string') {
+			response = JSON.parse(response);
+		}
+	
+		console.log(response); // Verifica la estructura del JSON
+	
+		if (response && response.Detalles && response.Detalles.length > 0) {
+			var detalles = response.Detalles[0];
+
+			console.log(detalles.mant_inve_id);
+			console.log(detalles.mant_fechainicio);
+			console.log(detalles.mant_fechadevolucion);
+			console.log(detalles.mant_resultado);
+			console.log(detalles.mant_estado);
+			
+			$("#mostrarMantId").val(detalles.mant_id);
+			$("#mostrarInveId").val(detalles.mant_inve_id);
+			$("#mostrarInveNombreId").val(detalles.prod_nombre);
+			$("#mostrarMantCantidad").val(detalles.mant_cantidad);
+			
+			// Transformar la fecha de inicio al formato yyyy-MM-dd
+			var fechaDeInicio = detalles.mant_fechainicio.split(" ")[0];
+			$("#mostrarMantFechainicio").val(fechaDeInicio);
+
+			// Transformar la fecha de devolución al formato yyyy-MM-dd
+			var fechaDeDevolucion = detalles.mant_fechadevolucion.split(" ")[0];
+			$("#mostrarMantFechadevolucion").val(fechaDeDevolucion);
+
+			$("#mostrarMantResultado").val(detalles.mant_resultado);
+			// Encuentra la opción seleccionada y actualiza su texto
+			$("#mostrarInveId option:selected").text(detalles.prod_nombre);
+		} else {
+			console.error("La estructura del JSON no es la esperada o Detalles está vacío.");
+		}
+	  });
 })
 
 /*=============================================

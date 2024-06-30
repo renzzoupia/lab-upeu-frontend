@@ -169,6 +169,7 @@ $(document).ready(function() {
 		var nuevoStockActual = $("#stockActual").val();
         var inveLaboId = $("#inveLaboId").val();
         var nuevoInveFecha = $("#nuevoInveFecha").val();
+		var nuevoInveCantidadDisponible = $("#nuevoInveCantidadDisponible").val();
 		
         // Configura los datos y la solicitud AJAX
         var settings = {
@@ -184,7 +185,8 @@ $(document).ready(function() {
                 "inve_prod_id": nuevoInveProdId,
                 "inve_cantidad_disponible": nuevoStockActual,
                 "inve_labo_id": inveLaboId,
-                "inve_fecha": nuevoInveFecha
+                "inve_fecha": nuevoInveFecha,
+				"inve_cantidad_entrada": nuevoInveCantidadDisponible
 			},
 			success: function(response) {
                 console.log("Registro exitosa:", response);
@@ -277,6 +279,55 @@ $(".tablas").on("click", ".btnEliminarInventario", function(){
 
     })
 
+})
+
+/*=============================================
+MOSTRAR INVENTARIO PRESTAMO
+=============================================*/
+$(".tablas").on("click", ".btnMostrarInventario", function(){
+
+	var mostrarInveId = $(this).attr("mostrarInveId");
+	var settings = {
+		"url": `${CONFIG.API_BASE_URL}inventario/${mostrarInveId}`,
+		"method": "GET",
+		"timeout": 0,
+		"headers": {
+			"Authorization": CONFIG.API_AUTH_HEADER
+		},
+	  };
+	  
+	  $.ajax(settings).done(function (response) {
+		// Si la respuesta es una cadena de texto, conviértela a un objeto JSON
+		if (typeof response === 'string') {
+			response = JSON.parse(response);
+		}
+	
+		console.log(response); // Verifica la estructura del JSON
+	
+		if (response && response.Detalles && response.Detalles.length > 0) {
+			var detalles = response.Detalles[0];
+			console.log("aqui estoyy" + detalles.labo_nombre);
+			console.log(detalles.labo_descripcion);
+			console.log(detalles.labo_escu_id);
+			
+			$("#mostrarInveId").val(detalles.inve_id);
+			$("#mostrarInveTipomovimiento").val(detalles.inve_tipomovimiento);
+			$("#mostrarInveProdId").val(detalles.prod_nombre);
+			$("#mostrarInveCantidadDisponible").val(detalles.inve_cantidad_disponible);
+			$("#mostrarInveCantidadAnterior").val(detalles.inve_cantidad_entrada);
+            $("#mostrarInveLaboId").val(detalles.inve_labo_id);
+			
+            // Transformar la fecha de inicio al formato yyyy-MM-dd
+			var fecha = detalles.inve_fecha.split(" ")[0];
+			$("#mostrarInveFecha").val(fecha);
+
+			// Encuentra la opción seleccionada y actualiza su texto
+			$("#mostrarInveProdId option:selected").text(detalles.prod_nombre);
+            $("#mostrarInveTipomovimiento option:selected").text(detalles.inve_tipomovimiento);
+		} else {
+			console.error("La estructura del JSON no es la esperada o Detalles está vacío.");
+		}
+	  });
 })
 
 
