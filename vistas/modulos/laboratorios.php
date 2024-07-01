@@ -79,6 +79,7 @@ if($_SESSION["perfil"] == "3"){
 }
 
 ?>
+
 <div class="content-wrapper">
 
   <section class="content-header">
@@ -145,18 +146,17 @@ if($_SESSION["perfil"] == "3"){
             <td>
 
               <div class="btn-group">
-              <button class="btn btn-success btnAsignarLaboratorio" 
+              <button class="btn btn-link fa-lg btnAsignarLaboratorio " 
                 asignarLaboId="<?= $laboratorio["labo_id"] ?>" 
-                data-toggle="modal" 
-                data-target="#modalAsignarLaboratorio"
+                data-toggle="modal" data-target="#modalAsignarLaboratorio"
                 <?= !empty($laboratorio["usua_nombrecompleto"]) ? 'disabled' : '' ?>>
-                <i class="fa fa-user"></i>
+                <i class="fa fa-user icono-azul"></i>
               </button>
-              <button class="btn btn-warning btnEditarLaboratorio" laboId="<?= $laboratorio["labo_id"] ?>"  data-toggle="modal" data-target="#modalEditarLaboratorio">
-                  <i class="fa fa-pencil"></i>
+              <button class="btn btn-link fa-lg btnEditarLaboratorio" laboId="<?= $laboratorio["labo_id"] ?>"  data-toggle="modal" data-target="#modalEditarLaboratorio">
+                  <i class="fa fa-pencil icono-amarillo"></i>
               </button>
-                <button class="btn btn-danger btnEliminarLaboratorio" eliminarLaboId="<?= $laboratorio["labo_id"] ?>">
-                  <i class="fa fa-times"></i>
+                <button class="btn btn-link fa-lg btnEliminarLaboratorio" eliminarLaboId="<?= $laboratorio["labo_id"] ?>">
+                  <i class="fa fa-times icono-rojo"></i>
                 </button>
                 
               </div>  
@@ -340,7 +340,7 @@ MODAL AGREGAR LABORATORIO
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+                <span class="input-group-addon"><i class="fa fa-text-width"></i></span> 
 
                 <input type="text" class="form-control input-lg" name="nuevoLaboNombre" placeholder="Ingresar nombre del laboratorio" id="nuevoLaboNombre" required>
 
@@ -354,7 +354,7 @@ MODAL AGREGAR LABORATORIO
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+                <span class="input-group-addon"><i class="fa fa-text-width"></i></span> 
 
                 <input type="text" class="form-control input-lg" name="nuevoLaboDescripcion" placeholder="Ingresar descripción" id="nuevoLaboDescripcion" required>
 
@@ -380,7 +380,7 @@ MODAL AGREGAR LABORATORIO
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-th"></i></span> 
-                <select class="form-control input-lg" id="laboEscuId" name="laboEscuId" >
+                <select class="form-control input-lg" id="laboEscuId" name="laboEscuId" required>
                   <option value="">Selecionar escuela</option>
                   <?php foreach ($dataEscuela["Detalles"] as $key => $escuela): ?>
                   <option value="<?= $escuela["escu_id"] ?>">
@@ -453,7 +453,7 @@ MODAL EDITAR LABORATORIO
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+                <span class="input-group-addon"><i class="fa fa-text-width"></i></span> 
 
                 <input type="text" class="form-control input-lg" id="editarLaboNombre" name="editarLaboNombre" value="" required>
                 <input type="hidden"  name="laboId" id="laboId" required>
@@ -467,7 +467,7 @@ MODAL EDITAR LABORATORIO
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+                <span class="input-group-addon"><i class="fa fa-text-width"></i></span> 
 
                 <input type="text" class="form-control input-lg" id="editarLaboDescripcion" name="editarLaboDescripcion" value="" required>
 
@@ -478,7 +478,7 @@ MODAL EDITAR LABORATORIO
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-th"></i></span> 
-                <select class="form-control input-lg" id="editarLaboEscuId" name="editarLaboEscuId" >
+                <select class="form-control input-lg" id="editarLaboEscuId" name="editarLaboEscuId" required>
                   <option value="">Selecionar escuela</option>
                   <?php foreach ($dataEscuela["Detalles"] as $key => $escuela): ?>
                   <option value="<?= $escuela["escu_id"] ?>">
@@ -502,7 +502,7 @@ MODAL EDITAR LABORATORIO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Modificar laboratorio</button>
+          <button type="submit" class="btn btn-secundary">Modificar laboratorio</button>
 
         </div>
 

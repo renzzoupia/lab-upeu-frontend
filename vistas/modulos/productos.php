@@ -70,7 +70,7 @@ $dataTipoProducto = json_decode($responsetipoproducto, true);
 
       <div class="box-header with-border">
   
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarProducto">
+        <button class="btn btn-secundary" data-toggle="modal" data-target="#modalAgregarProducto">
           
           Agregar producto
 
@@ -105,11 +105,11 @@ $dataTipoProducto = json_decode($responsetipoproducto, true);
             <td>
 
               <div class="btn-group">
-                <button class="btn btn-warning btnEditarProducto" prodId="<?= $productos["prod_id"] ?>" data-toggle="modal" data-target="#modalEditarProducto">
-                  <i class="fa fa-pencil"></i>
+                <button class="btn btn-link fa-lg btnEditarProducto" prodId="<?= $productos["prod_id"] ?>" data-toggle="modal" data-target="#modalEditarProducto">
+                  <i class="fa fa-pencil icono-amarillo"></i>
                 </button>
-                <button class="btn btn-danger btnEliminarProducto" eliminarProdId="<?= $productos["prod_id"] ?>">
-                  <i class="fa fa-times"></i>
+                <button class="btn btn-link fa-lg btnEliminarProducto" eliminarProdId="<?= $productos["prod_id"] ?>">
+                  <i class="fa fa-times icono-rojo"></i>
                 </button>
               </div>  
 
@@ -287,7 +287,7 @@ MODAL AGREGAR PRODUCTO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-#003264">Guardar laboratorio</button>
+          <button type="submit" class="btn btn-secundary">Guardar producto</button>
 
         </div>
 
@@ -456,7 +456,7 @@ MODAL EDITAR PRODUCTO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Modificar producto</button>
+          <button type="submit" class="btn btn-secundary">Modificar producto</button>
 
         </div>
 

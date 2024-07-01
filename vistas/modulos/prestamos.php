@@ -168,13 +168,10 @@ $dataUsuario = json_decode($responseusuario, true);
                         data-toggle="modal" 
                         data-target="#modalDevolverPrestamo"
                         <?= $prestamo["pres_estado"] === "Devuelto" ? 'disabled' : '' ?>>
-                    <i class="fa fa-check"></i>
-                </button>
-                <button class="btn btn-link fa-lg  btnEliminarPrestamo" eliminarPresId="<?= $prestamo["pres_id"] ?>">
-                  <i class="fa fa-times"></i>
+                    <i class="fa fa-check icono-verde"></i>
                 </button>
                 <button class="btn btn-link fa-lg  btnMostrarPrestamo" mostrarPresId="<?= $prestamo["pres_id"] ?>" data-toggle="modal" data-target="#modalMostrarPrestamo">
-                  <i class="fa fa-plus" ></i>
+                  <i class="fa fa-plus icono-azul" ></i>
                 </button>
                 
               </div>  
@@ -233,7 +230,7 @@ MODAL AGREGAR PRESTAMO
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-th"></i></span> 
-                    <select class="form-control input-lg" id="nuevoInveId" name="nuevoInveId" >
+                    <select class="form-control input-lg" id="nuevoInveId" name="nuevoInveId" required>
                         <option value="">Seleccionar producto</option>
                         <?php 
                         $seenProducts = array();
@@ -347,7 +344,7 @@ MODAL AGREGAR PRESTAMO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-#003264">Guardar laboratorio</button>
+          <button type="submit" class="btn btn-secundary">Guardar prestamo</button>
 
         </div>
 
@@ -526,7 +523,7 @@ MODAL DEVOLVER PRESTAMO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Modificar prestamo</button>
+          <button type="submit" class="btn btn-secundary">Confirmar devolucion del prestamo</button>
 
         </div>
 

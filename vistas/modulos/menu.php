@@ -28,13 +28,13 @@
 			</li>
 			<li>
 				<a href="prestamos">
-					<i class="fa fa-user"></i>
+					<i class="fa fa-share"></i>
 					<span>Prestamos</span>
 				</a>
 			</li>
 			<li>
 				<a href="mantenimientos">
-					<i class="fa fa-user"></i>
+					<i class="fa fa-wrench"></i>
 					<span>Mantenimientos</span>
 				</a>
 			</li>
@@ -63,7 +63,7 @@
 			</li>
 			<li>
 				<a href="reportes">
-					<i class="fa fa-flask"></i>
+					<i class="fa fa-registered"></i>
 					<span>Reportes</span>
 				</a>
 			</li>';
@@ -80,13 +80,13 @@
 			</li>
 			<li>
 				<a href="prestamos">
-					<i class="fa fa-user"></i>
+					<i class="fa fa-share"></i>
 					<span>Prestamos</span>
 				</a>
 			</li>
 			<li>
 				<a href="mantenimientos">
-					<i class="fa fa-user"></i>
+					<i class="fa fa-wrench"></i>
 					<span>Mantenimientos</span>
 				</a>
 			</li>
@@ -115,7 +115,7 @@
 			</li>
 			<li>
 				<a href="reportes">
-					<i class="fa fa-flask"></i>
+					<i class="fa fa-registered"></i>
 					<span>Reportes</span>
 				</a>
 			</li>';

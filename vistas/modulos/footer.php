@@ -1,3 +1,3 @@
 <footer class="main-footer">
-	<strong>UPeU &copy; 2024</strong>
+	<strong>Laboratorios de la Universidad UPeU campus Tarapoto &copy; 2024</strong>
 </footer>

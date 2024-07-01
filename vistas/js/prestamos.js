@@ -102,7 +102,7 @@ $(document).ready(function() {
 			console.log("Actualización exitosa:", response);
             swal({
                 type: "success",
-                title: "Prestamo ha sido actualizado correctamente",
+                title: "El prestamo ha sido actualizado correctamente",
                 showConfirmButton: true,
                 confirmButtonText: "Cerrar"
             }).then(function(result){
@@ -123,75 +123,6 @@ $(document).ready(function() {
                 }
             })
         });;
-        /*var editarImagen = $("#editarImagen")[0];
-
-        var form2 = new FormData();
-        form2.append("pres_inve_id", "3");
-        form2.append("pres_usua_id", "5"); // Cambia para permitir editar el usuario si es necesario
-        form2.append("pres_cantidad", "1");
-        form2.append("pres_codigouni_alumno", $("#editarPresCodigouniAlumno").val());
-        if (editarImagen && editarImagen.files[0]) {
-            form2.append("pres_evidencia", editarImagen.files[0]);
-        }
-        form2.append("pres_fechasolicitud", $("#editarPresFechasolicitud").val());
-        form2.append("pres_fechaentregado", $("#editarFechaentregado").val());
-        form2.append("pres_fechadevolucion", $("#editarPresFechadevolucion").val());
-        form2.append("pres_fecharealdevolucion", $("#editarPresFecharealdevolucion").val());
-        form2.append("pres_observacion", $("#editarPresObservacion").val());
-        form2.append("pres_estado", $("#editarPresEstado").val());
-		form2.append("id", $("#prestamoId").val());
-        var form2 = new FormData();
-		form2.append("pres_inve_id", "3");
-		form2.append("pres_usua_id", "5");
-		form2.append("pres_cantidad", "1");
-		form2.append("pres_codigouni_alumno", "22222");
-		form2.append("pres_evidencia", editarImagen.files[0]);
-		form2.append("pres_fechasolicitud", "2024-06-13 00:00:00");
-		form2.append("pres_fechaentregado", "2024-06-13 00:00:00");
-		form2.append("pres_fechadevolucion", "2024-06-13 00:00:00");
-		form2.append("pres_fecharealdevolucion", "2024-06-13 00:00:00");
-		form2.append("pres_observacion", "asd");
-		form2.append("pres_estado", "asd");
-		form2.append("id", "6");
-        var settings = {
-            "url": `${CONFIG.API_BASE_URL}prestamo/update`, // Asegúrate de que la URL es correcta
-            "method": "POST",
-          	"timeout": 0,
-          	"headers": {
-            	"Authorization": CONFIG.API_AUTH_HEADER,
-				"Content-Type": "application/json"
-			},
-			"processData": false,
-			"mimeType": "multipart/form-data",
-			"contentType": false,
-            "data": form2
-        };
-        $.ajax(settings).done(function(response) {
-            console.log("Actualización exitosa:", response);
-            swal({
-                type: "success",
-                title: "Prestamo ha sido actualizado correctamente",
-                showConfirmButton: true,
-                confirmButtonText: "Cerrar"
-            }).then(function(result){
-                if (result.value) {
-                    window.location = "prestamos";
-                }
-            })
-        }).fail(function(xhr, status, error) {
-            console.error("Error en actualizar:", error);
-            swal({
-                type: "error",
-                title: "Error al actualizar el préstamo!",
-                showConfirmButton: true,
-                confirmButtonText: "Cerrar"
-            }).then(function(result){
-                if (result.value) {
-                    window.location = "prestamos";
-                }
-            })
-        });
-*/
     });
 });
 /*=============================================
@@ -238,7 +169,7 @@ $(document).ready(function() {
                 // Aquí puedes agregar el código para actualizar la interfaz de usuario según sea necesario
                 swal({
 					type: "success",
-					title: "Prestamo ha sido guardado correctamente",
+					title: "El prestamo ha sido guardado correctamente",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
 					}).then(function(result){
@@ -253,7 +184,7 @@ $(document).ready(function() {
             console.error("Error en crear:", error);
                 swal({
 					type: "error",
-					title: "Prestamo no puede ir vacía o llevar caracteres especiales!",
+					title: "El prestamo no puede ir vacía o llevar caracteres especiales!",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
 					}).then(function(result){
@@ -278,7 +209,7 @@ $(".tablas").on("click", ".btnEliminarPrestamo", function(){
 	console.log(eliminarPresId);
 
     swal({
-        title: '¿Está seguro de borrar prestamo?',
+        title: '¿Está seguro de borrar el prestamo?',
         text: "¡Si no lo está puede cancelar la acción!",
         type: 'warning',
         showCancelButton: true,

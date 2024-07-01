@@ -79,7 +79,7 @@ foreach ($data["Detalles"] as $key => $inventario) {
 
       <div class="box-header with-border">
   
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarInventario">
+        <button class="btn btn-secundary" data-toggle="modal" data-target="#modalAgregarInventario">
           
           Registrar producto al inventario
 
@@ -123,7 +123,7 @@ foreach ($data["Detalles"] as $key => $inventario) {
               if ($_SESSION["perfil"] == 5) {
                   // Perfil 5 puede ver todo
                   $mostrar = true;
-              } elseif ($_SESSION["perfil"] == 3 && $prestamo["inve_labo_id"] == $_SESSION["labo_id"]) {
+              } elseif ($_SESSION["perfil"] == 3 && $inventario["inve_labo_id"] == $_SESSION["labo_id"]) {
                   // Perfil 3 solo puede ver si inve_labo_id coincide
                   $mostrar = true;
               }
@@ -140,14 +140,11 @@ foreach ($data["Detalles"] as $key => $inventario) {
             <td>
 
               <div class="btn-group">
-                <button class="btn btn-warning btnEditarInventario" inveId="<?= $inventario["inve_id"] ?>" data-toggle="modal" data-target="#modalEditarInventario">
-                  <i class="fa fa-pencil"></i>
-                </button>
-                <button class="btn btn-danger btnEliminarInventario" eliminarInveId="<?= $inventario["inve_id"] ?>">
-                  <i class="fa fa-times"></i>
+                <button class="btn btn-link fa-lg btnEditarInventario" inveId="<?= $inventario["inve_id"] ?>" data-toggle="modal" data-target="#modalEditarInventario">
+                  <i class="fa fa-pencil icono-amarillo"></i>
                 </button>
                 <button class="btn btn-link fa-lg  btnMostrarInventario" mostrarInveId="<?= $inventario["inve_id"] ?>" data-toggle="modal" data-target="#modalMostrarInventario">
-                  <i class="fa fa-plus" ></i>
+                  <i class="fa fa-plus icono-azul" ></i>
                 </button>
               </div>  
 
@@ -320,7 +317,7 @@ MODAL EDITAR INVENTARIO
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-          <h4 class="modal-title">Editar producto</h4>
+          <h4 class="modal-title">Editar producto del inventario</h4>
 
         </div>
 
@@ -404,7 +401,7 @@ MODAL EDITAR INVENTARIO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Modificar producto</button>
+          <button type="submit" class="btn btn-secundary">Modificar producto</button>
 
         </div>
 

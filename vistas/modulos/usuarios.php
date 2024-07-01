@@ -81,7 +81,7 @@ if($_SESSION["perfil"] == "3"){
 
       <div class="box-header with-border">
   
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">
+        <button class="btn btn-secundary" data-toggle="modal" data-target="#modalAgregarUsuario">
           
           Agregar usuario
 
@@ -121,11 +121,11 @@ if($_SESSION["perfil"] == "3"){
             <td>
 
               <div class="btn-group">
-              <button class="btn btn-warning btnEditarUsuario" idUsuario="<?= $cliente["usua_id"] ?>" data-toggle="modal" data-target="#modalEditarUsuario">
-                <i class="fa fa-pencil"></i>
+              <button class="btn btn-link fa-lg btnEditarUsuario" idUsuario="<?= $cliente["usua_id"] ?>" data-toggle="modal" data-target="#modalEditarUsuario">
+                <i class="fa fa-pencil icono-amarillo"></i>
               </button>
-              <button class="btn btn-danger btnEliminarUsuario" eliminarUsuaId="<?= $cliente["usua_id"] ?>">
-                  <i class="fa fa-times"></i>
+              <button class="btn btn-link fa-lg btnEliminarUsuario" eliminarUsuaId="<?= $cliente["usua_id"] ?>">
+                  <i class="fa fa-times icono-rojo"></i>
                 </button>
               </div>  
 
@@ -160,7 +160,7 @@ MODAL AGREGAR USUARIO
         CABEZA DEL MODAL
         ======================================-->
 
-        <div class="modal-header" style="background:#3c8dbc; color:white">
+        <div class="modal-header" style="background:#003264; color:white">
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -212,7 +212,7 @@ MODAL AGREGAR USUARIO
               
                 <span class="input-group-addon"><i class="fa fa-user"></i></span> 
 
-                <input type="text" class="form-control input-lg" name="nuevoUsuaClave" placeholder="Ingresar clave" id="nuevoUsuaClave" required>
+                <input type="password" class="form-control input-lg" name="nuevoUsuaClave" placeholder="Ingresar clave" id="nuevoUsuaClave" required>
 
               </div>
 
@@ -221,15 +221,10 @@ MODAL AGREGAR USUARIO
             <!-- ENTRADA PARA EL DNI -->
             
             <div class="form-group">
-              
               <div class="input-group">
-              
                 <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-
-                <input type="text" class="form-control input-lg" name="nuevoUsuaDni" placeholder="Ingresar dni" id="nuevoUsuaDni" required>
-
+                <input type="number" class="form-control input-lg" name="nuevoUsuaDni" placeholder="Ingresar dni" id="nuevoUsuaDni" required minlength="8" maxlength="8">
               </div>
-
             </div>
 
           </div>
@@ -244,7 +239,7 @@ MODAL AGREGAR USUARIO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Guardar usuario</button>
+          <button type="submit" class="btn btn-secundary">Guardar usuario</button>
 
         </div>
 
@@ -272,7 +267,7 @@ MODAL EDITAR USUARIO
         CABEZA DEL MODAL
         ======================================-->
 
-        <div class="modal-header" style="background:#3c8dbc; color:white">
+        <div class="modal-header" style="background:#003264; color:white">
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -325,7 +320,7 @@ MODAL EDITAR USUARIO
               
                 <span class="input-group-addon"><i class="fa fa-user"></i></span> 
 
-                <input type="text" class="form-control input-lg" id="editarUsuaClave" name="editarUsuaClave" value="" required>
+                <input type="password" class="form-control input-lg" id="editarUsuaClave" name="editarUsuaClave" value="" required readonly>
 
               </div>
 
@@ -358,7 +353,7 @@ MODAL EDITAR USUARIO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Modificar usuario</button>
+          <button type="submit" class="btn btn-secundary">Modificar usuario</button>
 
         </div>
 
@@ -369,5 +364,21 @@ MODAL EDITAR USUARIO
   </div>
 
 </div>
+<script>
+  document.getElementById('nuevoUsuaDni').addEventListener('input', function (e) {
+    var value = e.target.value;
 
+    // Limitar el valor a 8 dígitos
+    if (value.length > 8) {
+      e.target.value = value.slice(0, 8);
+    }
+  });
 
+  document.getElementById('formRegistrarUsuario').addEventListener('submit', function (e) {
+    var dniInput = document.getElementById('nuevoUsuaDni');
+    if (dniInput.value.length !== 8) {
+      e.preventDefault();  // Prevenir el envío del formulario
+      alert('El DNI debe tener exactamente 8 dígitos');
+    }
+  });
+</script>

@@ -70,7 +70,7 @@ $dataInventario = json_decode($responseinventario, true);
 
       <div class="box-header with-border">
   
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarMantenimiento">
+        <button class="btn btn-secundary" data-toggle="modal" data-target="#modalAgregarMantenimiento">
           
           Registrar mantenimiento
 
@@ -110,7 +110,7 @@ $dataInventario = json_decode($responseinventario, true);
               if ($_SESSION["perfil"] == 5) {
                   // Perfil 5 puede ver todo
                   $mostrar = true;
-              } elseif ($_SESSION["perfil"] == 3 && $prestamo["inve_labo_id"] == $_SESSION["labo_id"]) {
+              } elseif ($_SESSION["perfil"] == 3 && $mantenimiento["inve_labo_id"] == $_SESSION["labo_id"]) {
                   // Perfil 3 solo puede ver si inve_labo_id coincide
                   $mostrar = true;
               }
@@ -126,19 +126,20 @@ $dataInventario = json_decode($responseinventario, true);
             <td>
 
               <div class="btn-group">
-              <button class="btn btn-success btnEditarMantenimiento" 
+              <button class="btn btn-link fa-lg btnEditarMantenimiento" 
                         mantId="<?= $mantenimiento["mant_id"] ?>" 
                         data-toggle="modal" 
                         data-target="#modalEditarMantenimiento"
                         <?= $mantenimiento["mant_estado"] === "Solucionado" ? 'disabled' : '' ?>>
-                    <i class="fa fa-pencil"></i>
-                </button>
-                <button class="btn btn-danger btnEliminarMantenimiento" eliminarMantId="<?= $mantenimiento["mant_id"] ?>">
-                  <i class="fa fa-times"></i>
+                    <i class="fa fa-check icono-verde"></i>
                 </button>
                 <button class="btn btn-link fa-lg  btnMostrarMantenimiento" mostrarMantId="<?= $mantenimiento["mant_id"] ?>" data-toggle="modal" data-target="#modalMostrarMantenimiento">
-                  <i class="fa fa-plus" ></i>
+                  <i class="fa fa-plus icono-azul" ></i>
                 </button>
+                <button class="btn btn-link fa-lg btnEliminarMantenimiento" eliminarMantId="<?= $mantenimiento["mant_id"] ?>">
+                  <i class="fa fa-times icono-rojo"></i>
+                </button>
+                
               </div>
 
             </td>
@@ -267,7 +268,7 @@ MODAL AGREGAR MANTENIMIENTO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-#003264">Guardar laboratorio</button>
+          <button type="submit" class="btn btn-secundary">Registrar mantenimiento</button>
 
         </div>
 
@@ -299,7 +300,7 @@ MODAL EDITAR MANTENIMIENTO
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-          <h4 class="modal-title">Editar mantenimiento</h4>
+          <h4 class="modal-title">Recibir producto del mantenimiento</h4>
 
         </div>
 
@@ -387,7 +388,7 @@ MODAL EDITAR MANTENIMIENTO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Modificar producto</button>
+          <button type="submit" class="btn btn-secundary">Recibir producto</button>
 
         </div>
 

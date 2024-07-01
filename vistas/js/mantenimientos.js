@@ -54,7 +54,7 @@ $(".tablas").on("click", ".btnEditarMantenimiento", function(){
 })
 /*=============================================
 CONFIRMAR EDITAR MANTENIMIENTO
-=============================================*/
+=============================================
 $(document).ready(function() {
     $("#formEditarMantenimiento").on("submit", function(event) {
         event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
@@ -121,12 +121,142 @@ $(document).ready(function() {
 		  });
 		  
     });
+});*/
+$(document).ready(function() {
+    $("#formEditarMantenimiento").on("submit", function(event) {
+        event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+
+        var editarMantId = $("#editarMantId").val();
+        var editarInveId = $("#editarInveId").val();
+        var editarMantFechainicio = $("#editarMantFechainicio").val();
+        var editarMantFechadevolucion = $("#editarMantFechadevolucion").val();
+        var editarMantResultado = $("#editarMantResultado").val();
+        var editarMantCantidad = $("#editarMantCantidad").val();
+
+        // Primero, obtenemos el inventario actual para el producto
+        var getInventarioSettings = {
+            "url": `${CONFIG.API_BASE_URL}inventario/${editarInveId}`,
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Authorization": CONFIG.API_AUTH_HEADER
+            },
+        };
+
+        $.ajax(getInventarioSettings).done(function(response) {
+            // Si la respuesta es una cadena de texto, conviértela a un objeto JSON
+            if (typeof response === 'string') {
+                response = JSON.parse(response);
+            }
+
+            console.log(response); // Verifica la estructura del JSON
+
+            if (response && response.Detalles && response.Detalles.length > 0) {
+                var detalles = response.Detalles[0];
+                var cantidadDisponible = detalles.inve_cantidad_disponible;
+				var inve_tipomovimiento = detalles.inve_tipomovimiento;
+				var inve_prod_id = detalles.inve_prod_id;
+				var inve_labo_id = detalles.inve_labo_id;
+				var inve_fecha = detalles.inve_fecha;
+
+                // Calcula la nueva cantidad disponible sumando la cantidad del mantenimiento
+                var nuevaCantidadDisponible = parseInt(cantidadDisponible) + parseInt(editarMantCantidad);
+
+                // Ahora, actualiza el mantenimiento
+                var updateMantenimientoSettings = {
+                    "url": `${CONFIG.API_BASE_URL}mantenimiento/${editarMantId}`,
+                    "method": "PUT",
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Authorization": CONFIG.API_AUTH_HEADER
+                    },
+                    "data": {
+                        "mant_inve_id": editarInveId,
+                        "mant_fechainicio": editarMantFechainicio,
+                        "mant_fechadevolucion": editarMantFechadevolucion,
+                        "mant_resultado": editarMantResultado,
+                        "mant_estado": "Solucionado",
+                        "mant_cantidad": editarMantCantidad
+                    },
+                    success: function(response) {
+                        console.log("Edición exitosa:", response);
+
+                        // Después de actualizar el mantenimiento, actualiza la cantidad de inventario
+                        var updateInventarioSettings = {
+                            "url": `${CONFIG.API_BASE_URL}inventario/${editarInveId}`,
+                            "method": "PUT",
+                            "timeout": 0,
+                            "headers": {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                                "Authorization": CONFIG.API_AUTH_HEADER
+                            },
+                            "data": {
+                                "inve_cantidad_disponible": nuevaCantidadDisponible,
+								"inve_tipomovimiento": inve_tipomovimiento,
+								"inve_prod_id": inve_prod_id,
+								"inve_labo_id": inve_labo_id,
+								"inve_fecha": inve_fecha
+                            },
+                            success: function(response) {
+                                console.log("Inventario actualizado:", response);
+                                swal({
+                                    type: "success",
+                                    title: "El mantenimiento ha sido modificado correctamente",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar"
+                                }).then(function(result){
+                                    if (result.value) {
+                                        window.location = "mantenimientos";
+                                    }
+                                });
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error en actualizar inventario:", error);
+                                swal({
+                                    type: "error",
+                                    title: "Error al actualizar el inventario!",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar"
+                                }).then(function(result){
+                                    if (result.value) {
+                                        window.location = "mantenimientos";
+                                    }
+                                });
+                            }
+                        };
+
+                        $.ajax(updateInventarioSettings);
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error en editar mantenimiento:", error);
+                        swal({
+                            type: "error",
+                            title: "Mantenimiento no puede ir vacío o llevar caracteres especiales!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar"
+                        }).then(function(result){
+                            if (result.value) {
+                                window.location = "mantenimientos";
+                            }
+                        });
+                    }
+                };
+
+                $.ajax(updateMantenimientoSettings);
+                
+            } else {
+                console.error("La estructura del JSON no es la esperada o Detalles está vacío.");
+            }
+        });
+    });
 });
 
 
 /*=============================================
 GUARDAR MANTENIMIENTO
-=============================================*/
+=============================================
 $(document).ready(function() {
     $("#formRegistrarMantenimiento").on("submit", function(event) {
         event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
@@ -192,7 +322,138 @@ $(document).ready(function() {
 			console.log(response);
 		  });
     });
+});*/
+$(document).ready(function() {
+    $("#formRegistrarMantenimiento").on("submit", function(event) {
+        event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+
+        // Captura los valores de los campos
+        var prodId = $("#prodId").val();
+        var nuevoMantFechainicio = $("#nuevoMantFechainicio").val();
+        var nuevoMantFechadevolucion = $("#nuevoMantFechadevolucion").val();
+        var nuevoMantCantidad = $("#nuevoMantCantidad").val();
+
+        // Primero, obtenemos el inventario actual para el producto
+        var getInventarioSettings = {
+            "url": `${CONFIG.API_BASE_URL}inventario/${prodId}`,
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Authorization": CONFIG.API_AUTH_HEADER
+            },
+        };
+
+        $.ajax(getInventarioSettings).done(function(response) {
+            // Si la respuesta es una cadena de texto, conviértela a un objeto JSON
+            if (typeof response === 'string') {
+                response = JSON.parse(response);
+            }
+
+            console.log(response); // Verifica la estructura del JSON
+
+            if (response && response.Detalles && response.Detalles.length > 0) {
+                var detalles = response.Detalles[0];
+                var cantidadDisponible = detalles.inve_cantidad_disponible;
+				var inve_tipomovimiento = detalles.inve_tipomovimiento;
+				var inve_prod_id = detalles.inve_prod_id;
+				var inve_labo_id = detalles.inve_labo_id;
+				var inve_fecha = detalles.inve_fecha;
+
+                // Calcula la nueva cantidad disponible restando la cantidad del mantenimiento
+                var nuevaCantidadDisponible = cantidadDisponible - nuevoMantCantidad;
+
+                // Ahora, guarda el mantenimiento
+                var saveMantenimientoSettings = {
+                    "url": `${CONFIG.API_BASE_URL}mantenimiento`,
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Authorization": CONFIG.API_AUTH_HEADER
+                    },
+                    "data": {
+                        "mant_inve_id": prodId,
+                        "mant_fechainicio": nuevoMantFechainicio,
+                        "mant_fechadevolucion": nuevoMantFechadevolucion,
+                        "mant_estado": "Mantenimiento",
+                        "mant_cantidad": nuevoMantCantidad
+                    },
+                    success: function(response) {
+                        console.log("Registro exitoso:", response);
+
+                        // Actualiza la cantidad de inventario después de guardar el mantenimiento
+                        var updateInventarioSettings = {
+                            "url": `${CONFIG.API_BASE_URL}inventario/${prodId}`,
+                            "method": "PUT",
+                            "timeout": 0,
+                            "headers": {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                                "Authorization": CONFIG.API_AUTH_HEADER
+                            },
+                            "data": {
+                                "inve_cantidad_disponible": nuevaCantidadDisponible,
+								"inve_tipomovimiento": inve_tipomovimiento,
+								"inve_prod_id": inve_prod_id,
+								"inve_labo_id": inve_labo_id,
+								"inve_fecha": inve_fecha
+
+                            },
+                            success: function(response) {
+                                console.log("Inventario actualizado:", response);
+                                swal({
+                                    type: "success",
+                                    title: "El mantenimiento ha sido guardado correctamente",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar"
+                                }).then(function(result){
+                                    if (result.value) {
+                                        window.location = "mantenimientos";
+                                    }
+                                });
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error en actualizar inventario:", error);
+                                swal({
+                                    type: "error",
+                                    title: "Error al actualizar el inventario!",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar"
+                                }).then(function(result){
+                                    if (result.value) {
+                                        window.location = "mantenimientos";
+                                    }
+                                });
+                            }
+                        };
+
+                        $.ajax(updateInventarioSettings);
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error en crear:", error);
+                        swal({
+                            type: "error",
+                            title: "Mantenimiento no puede ir vacío o llevar caracteres especiales!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar"
+                        }).then(function(result){
+                            if (result.value) {
+                                window.location = "mantenimientos";
+                            }
+                        });
+                    }
+                };
+
+                $.ajax(saveMantenimientoSettings);
+                
+            } else {
+                console.error("La estructura del JSON no es la esperada o Detalles está vacío.");
+            }
+        });
+    });
 });
+
+
 
 /*=============================================
 ELIMINAR LABORATORIO
@@ -203,7 +464,7 @@ $(".tablas").on("click", ".btnEliminarMantenimiento", function(){
 	var eliminarMantId = $(this).attr("eliminarMantId");
 
     swal({
-        title: '¿Está seguro de borrar mantenimiento?',
+        title: '¿Está seguro de borrar el mantenimiento?',
         text: "¡Si no lo está puede cancelar la acción!",
         type: 'warning',
         showCancelButton: true,
@@ -228,7 +489,7 @@ $(".tablas").on("click", ".btnEliminarMantenimiento", function(){
                 console.log(response);
                 swal({
 					type: "success",
-					title: "Mantenimiento ha sido eliminado correctamente",
+					title: "El mantenimiento ha sido eliminado correctamente",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
 					}).then(function(result){

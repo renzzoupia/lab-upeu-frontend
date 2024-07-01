@@ -246,39 +246,68 @@ $(document).ready(function() {
 				"labo_escu_id": labo_escu_id
 			},
 			success: function(response) {
-                console.log("Registro exitosa:", response);
-                // Aquí puedes agregar el código para actualizar la interfaz de usuario según sea necesario
-                swal({
-					type: "success",
-					title: "Laboratorio ha sido guardado correctamente",
-					showConfirmButton: true,
-					confirmButtonText: "Cerrar"
-					}).then(function(result){
+				// Asegurarse de que la respuesta es un objeto JSON
+				var parsedResponse;
+				try {
+					parsedResponse = typeof response === "object" ? response : JSON.parse(response);
+				} catch (e) {
+					console.error("Error al parsear la respuesta de la API:", e);
+					swal({
+						type: "error",
+						title: "Error inesperado en la respuesta del servidor",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar"
+					}).then(function(result) {
 						if (result.value) {
-
-						window.location = "laboratorios";
-
+							window.location = "laboratorios";
 						}
-				})
-                // Opcional: actualizar la lista de categorías o hacer algo más después de una edición exitosa
-            },
-            error: function(xhr, status, error) {
-                console.error("Error en crear:", error);
-                swal({
+					});
+					return;
+				}
+		
+				console.log("Respuesta de la API:", parsedResponse);
+		
+				if (parsedResponse.Status === 200) {
+					swal({
+						type: "success",
+						title: "Laboratorio ha sido guardado correctamente",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar"
+					}).then(function(result) {
+						if (result.value) {
+							window.location = "laboratorios";
+						}
+					});
+				} else {
+					swal({
+						type: "error",
+						title: "Laboratorio no puede ir vacío o llevar caracteres especiales!",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar"
+					}).then(function(result) {
+						if (result.value) {
+							window.location = "laboratorios";
+						}
+					});
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("Error en crear:", error);
+				swal({
 					type: "error",
-					title: "Laboratorio no puede ir vacía o llevar caracteres especiales!",
+					title: "Laboratorio no puede ir vacío o llevar caracteres especiales!",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
-					}).then(function(result){
-					  if (result.value) {
-
-					  window.location = "laboratorios";
-
-					  }
-				})
-            }
-			
-		  };
+				}).then(function(result) {
+					if (result.value) {
+						window.location = "laboratorios";
+					}
+				});
+			}
+		};
+		
+		$.ajax(settings);
+		
 		  
 		  $.ajax(settings).done(function (response) {
 			console.log(response);

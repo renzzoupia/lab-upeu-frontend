@@ -93,7 +93,7 @@ $(document).ready(function() {
         var editarInveTipomovimiento = $("#editarInveTipomovimiento").val();
         var editarInveProdId = $("#editarInveProdId").val();
         var editarInveCantidadDisponible = $("#editarInveCantidadDisponible").val();
-        var editarInveLaboId = $("#editarInveLaboId").val();
+        var inveLaboId = $("#inveLaboId").val();
         var editarInveFecha = $("#editarInveFecha").val();
 
         // Configura los datos y la solicitud AJAX
@@ -109,7 +109,7 @@ $(document).ready(function() {
 			    "inve_tipomovimiento": editarInveTipomovimiento,
                 "inve_prod_id": editarInveProdId,
                 "inve_cantidad_disponible": editarInveCantidadDisponible,
-                "inve_labo_id": "3",
+                "inve_labo_id": inveLaboId,
                 "inve_fecha": editarInveFecha
 			},
 			success: function(response) {
@@ -117,7 +117,7 @@ $(document).ready(function() {
                 // Aquí puedes agregar el código para actualizar la interfaz de usuario según sea necesario
                 swal({
 					type: "success",
-					title: "Inventario ha sido modifficado correctamente",
+					title: "El inventario ha sido modificado correctamente",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
 					}).then(function(result){
@@ -193,7 +193,7 @@ $(document).ready(function() {
                 // Aquí puedes agregar el código para actualizar la interfaz de usuario según sea necesario
                 swal({
 					type: "success",
-					title: "Laboratorio ha sido guardado correctamente",
+					title: "El inventario ha sido guardado correctamente",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
 					}).then(function(result){
@@ -239,14 +239,14 @@ $(".tablas").on("click", ".btnEliminarInventario", function(){
 	console.log(eliminarInveId);
 
     swal({
-        title: '¿Está seguro de borrar laboratorio?',
+        title: '¿Está seguro de borrar el inventario?',
         text: "¡Si no lo está puede cancelar la acción!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Si, borrar laboratorio!'
+        confirmButtonText: 'Si, borrar el inventario!'
     }).then(function(result){
 		
         if(result.value){

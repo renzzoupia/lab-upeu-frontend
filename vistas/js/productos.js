@@ -85,7 +85,7 @@ $(document).ready(function() {
                 // Aquí puedes agregar el código para actualizar la interfaz de usuario según sea necesario
                 swal({
 					type: "success",
-					title: "Producto ha sido modifficado correctamente",
+					title: "El producto ha sido modificado correctamente",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
 					}).then(function(result){
@@ -101,7 +101,7 @@ $(document).ready(function() {
                 console.error("Error en editar Producto:", error);
                 swal({
 					type: "error",
-					title: "Producto no puede ir vacía o llevar caracteres especiales!",
+					title: "El producto no puede ir vacía o llevar caracteres especiales!",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
 					}).then(function(result){
@@ -164,7 +164,7 @@ $(document).ready(function() {
                 // Aquí puedes agregar el código para actualizar la interfaz de usuario según sea necesario
                 swal({
 					type: "success",
-					title: "Producto ha sido guardado correctamente",
+					title: "El producto ha sido guardado correctamente",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
 					}).then(function(result){
@@ -180,7 +180,7 @@ $(document).ready(function() {
                 console.error("Error en crear:", error);
                 swal({
 					type: "error",
-					title: "Producto no puede ir vacía o llevar caracteres especiales!",
+					title: "El producto no puede ir vacía o llevar caracteres especiales!",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar"
 					}).then(function(result){
