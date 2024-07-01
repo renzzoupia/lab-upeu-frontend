@@ -384,7 +384,7 @@ $(".tablas").on("click", ".btnEliminarUsuario", function(){
 
     swal({
         title: '¿Está seguro de borrar usuario?',
-        text: "¡Si no lo está puede cancelar la acción!",
+        text: "¡Asegurate que no este asignado a ningun laboratorio!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

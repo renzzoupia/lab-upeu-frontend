@@ -21,7 +21,9 @@ session_start();
    <!--=====================================
   PLUGINS DE CSS
   ======================================-->
-
+    
+  <!--===== Boxicons CSS =====-->
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Bootstrap 3.4.1 -->

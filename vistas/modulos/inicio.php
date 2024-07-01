@@ -28,7 +28,7 @@
 
     if($_SESSION["perfil"] =="5"){
 
-      include "inicio/cajas-superiores.php";
+      //include "inicio/cajas-superiores.php";
 
     }
 

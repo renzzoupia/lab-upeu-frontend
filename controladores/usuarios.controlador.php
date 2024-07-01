@@ -57,7 +57,7 @@ class ControladorUsuarios{
 					date_default_timezone_set('America/Lima');
 					$fechaActual = date('Y-m-d H:i:s');
 	
-					echo '<script>window.location = "inicio";</script>';
+					echo '<script>window.location = "reportes";</script>';
 				} else {
 					// Manejo de errores según el detalle proporcionado por la API
 					if (isset($responseArray["Detalles"])) {

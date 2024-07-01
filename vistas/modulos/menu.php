@@ -66,7 +66,25 @@
 					<i class="fa fa-registered"></i>
 					<span>Reportes</span>
 				</a>
-			</li>';
+			</li>
+			<li class="treeview">
+				<a href="#">
+					<i class="fa fa-user-circle-o"></i>
+					<span>Hola '. $_SESSION["nombre"] .'</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+				<ul class="treeview-menu">
+					<li>
+						<a href="salir">
+							<i class="fa fa-power-off"></i>
+							<span>Cerrar sesión</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			';
 		}
 
 		// Este bloque maneja el menú para usuarios con perfil 3 (acceso limitado)
@@ -118,6 +136,23 @@
 					<i class="fa fa-registered"></i>
 					<span>Reportes</span>
 				</a>
+			</li>
+			<li class="treeview">
+				<a href="#">
+					<i class="fa fa-user-circle-o"></i>
+					<span>Hola '. $_SESSION["nombre"] .'</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+				<ul class="treeview-menu">
+					<li>
+						<a href="salir">
+							<i class="fa fa-power-off"></i>
+							<span>Cerrar sesión</span>
+						</a>
+					</li>
+				</ul>
 			</li>';
 		}
 		?>

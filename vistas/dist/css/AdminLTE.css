@@ -95,7 +95,11 @@ body {
 }
 .content-wrapper {
   min-height: 100%;
-  background-color: rgb(219, 220, 224);
+  background-image: url('../img/upeufondo2.jpg');
+  background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
+  background-repeat: no-repeat; /* No repite la imagen */
+  background-position: center center; /* Centra la imagen */
+  background-attachment: fixed;
   z-index: 800;
 }
 .main-footer {
